@@ -1,14 +1,15 @@
+from functions import write, read
+
+
 while True:
     user_action = input("\nEnter add, show, edit, complete, exit : ")
     user_action = user_action.strip()
 
     if user_action.startswith('add'):
         user_action = user_action[4:]
-        with open('todos.txt', 'r') as file:
-            todos = file.readlines()
+        todos = read()
         todos.append(user_action + '\n')
-        with open('todos.txt', 'w') as file:
-            file.writelines(todos)
+        write(todos)
 
     elif user_action.startswith('show'):
 
@@ -16,8 +17,7 @@ while True:
         # todos = file.readlines()
         # file.close()
 
-        with open('todos.txt', 'r') as file:
-            todos = file.readlines()
+        todos = read()
 
         # new_todos = [item.strip('\n') for item in todos]
         for index, item in enumerate(todos):
@@ -26,8 +26,7 @@ while True:
         print(f"We have {len(todos)} task in the list.")
 
     elif user_action.startswith('edit'):
-        with open('todos.txt', 'r') as file:
-            todos = file.readlines()
+        read()
         user_action = user_action[5:]
         if user_action.isnumeric():
             number = int(user_action)
@@ -48,13 +47,11 @@ while True:
         # file.writelines(todos)
         # file.close()
 
-        with open('todos.txt', 'w') as file:
-            file.writelines(todos)
+        write(todos)
 
     elif user_action.startswith('complete'):
         user_action = user_action[9:]
-        with open('todos.txt', 'r') as file:
-            todos = file.readlines()
+        todos = read()
         if user_action.isnumeric():
             number = int(user_action)
             if len(todos) >= number > 0:
@@ -71,8 +68,7 @@ while True:
                 else:
                     print(f"{user_action} is not present in the list.")
 
-        with open('todos.txt', 'w') as file:
-            file.writelines(todos)
+        write(todos)
 
     elif user_action.startswith('exit'):
         break
