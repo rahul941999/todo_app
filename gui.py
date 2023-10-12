@@ -1,21 +1,22 @@
 import functions
-import PySimpleGUI as gui
+import PySimpleGUI as Gui
 import time
 
-gui.theme("DarkBlack")
+Gui.theme("DarkBlack")
 
-label_time = gui.Text("", key='clock')
-label = gui.Text("Type a ToDo : ")
-input_txt = gui.InputText(tooltip='Enter ToDo', key='todo')
-add_button = gui.Button('Add')
-list_box = gui.Listbox(values=functions.read(), key='todos',
-                       enable_events=True, size=[40, 12])
-edit_button = gui.Button('Edit')
-complete_button = gui.Button('Complete')
+label_time = Gui.Text("", key='clock')
+label = Gui.Text("Type a ToDo : ")
+input_txt = Gui.InputText(tooltip='Enter ToDo', key='todo')
+add_button = Gui.Button('Add', size=8)
+list_box = Gui.Listbox(values=functions.read(), key='todos',
+                       enable_events=True, size=(40, 12))
+edit_button = Gui.Button('Edit', size=(7, 1))
+complete_button = Gui.Button(key='Complete', image_size=(62, 23), image_source='images/complete.png',
+                             tooltip="Complete", mouseover_colors='LightBlue2')
 rc_content = [[edit_button], [complete_button]]
-right_col = gui.Column(rc_content)
-exit_button = gui.Button('Exit')
-window = gui.Window(" ToDo App",
+right_col = Gui.Column(rc_content)
+exit_button = Gui.Button('Exit', key="Exit", size=20)
+window = Gui.Window(" ToDo App",
                     layout=[[label_time],
                             [label], [input_txt, add_button],
                             [list_box, right_col],
@@ -33,7 +34,7 @@ while True:
                 window['todos'].update(values=todos)
                 window['todo'].update(value="")
             else:
-                gui.popup("Please Enter a todo to add", font=('Helvetica', 12))
+                Gui.popup("Please Enter a todo to add", font=('Helvetica', 12))
         case 'Edit':
             try:
                 todo_edit = value['todos'][0]
@@ -45,7 +46,7 @@ while True:
                 window['todos'].update(values=todos)
                 window['todo'].update(value="")
             except IndexError:
-                gui.popup("Please select an item first", font=('Helvetica', 12))
+                Gui.popup("Please select an item first", font=('Helvetica', 12))
         case 'todos':
             window['todo'].update(value=value['todos'][0].strip("\n"))
         case 'Complete':
@@ -60,10 +61,10 @@ while True:
                 window['todos'].update(values=todos)
                 window['todo'].update(value="")
             except IndexError:
-                gui.popup("Please select an item first", font=('Helvetica', 12))
+                Gui.popup("Please select an item first", font=('Helvetica', 12))
         case 'Exit':
             window.close()
             exit()
-        case gui.WIN_CLOSED:
+        case Gui.WIN_CLOSED:
             break
 window.close()
