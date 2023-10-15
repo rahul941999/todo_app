@@ -1,8 +1,14 @@
 import functions
 import PySimpleGUI as Gui
 import time
+import os
+
 
 Gui.theme("DarkBlack")
+
+if not os.path.exists("todos.txt"):
+    with open('todos.txt',"w") as file:
+        pass
 
 label_time = Gui.Text("", key='clock')
 label = Gui.Text("Type a ToDo : ")
@@ -63,8 +69,7 @@ while True:
             except IndexError:
                 Gui.popup("Please select an item first", font=('Helvetica', 12))
         case 'Exit':
-            window.close()
-            exit()
+            break
         case Gui.WIN_CLOSED:
             break
 window.close()
