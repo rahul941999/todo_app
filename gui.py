@@ -7,7 +7,7 @@ import os
 Gui.theme("DarkBlack")
 
 if not os.path.exists("todos.txt"):
-    with open('todos.txt',"w") as file:
+    with open('todos.txt', "w") as file:
         pass
 
 label_time = Gui.Text("", key='clock')
@@ -17,7 +17,7 @@ add_button = Gui.Button('Add', size=8)
 list_box = Gui.Listbox(values=functions.read(), key='todos',
                        enable_events=True, size=(40, 12))
 edit_button = Gui.Button('Edit', size=(7, 1))
-complete_button = Gui.Button(key='Complete', image_size=(62, 23), image_source='images/complete.png',
+complete_button = Gui.Button("Complete", key='Complete', size=(7, 1),
                              tooltip="Complete", mouseover_colors='LightBlue2')
 rc_content = [[edit_button], [complete_button]]
 right_col = Gui.Column(rc_content)
